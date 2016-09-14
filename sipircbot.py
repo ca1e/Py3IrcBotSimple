@@ -4,7 +4,7 @@ import socket
 
 irc_host = "irc.freenode.net"
 irc_port = 6667
-irc_chan = "#linuxba"
+irc_chan = "#linuxba"#,#tuna
 
 bot_name = "mekubot"
 usr_name = "meku_bot"
@@ -21,7 +21,7 @@ irc_sock.send(("JOIN " + irc_chan + "\r\n").encode())
 while True:
 	data = irc_sock.makefile(encoding='utf-8')
 	for line in data:
-		print(line)
 		if(line.startswith("PING")):
-			send_back = line.replace("PING", "PONG")
-			irc_sock.send(send_back.encode())
+			irc_sock.send(line.replace("PING", "PONG").encode())
+		else:
+			print(line.encode('utf-8').decode())
